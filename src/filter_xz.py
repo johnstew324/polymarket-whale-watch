@@ -1,14 +1,15 @@
 # Extracts trades for our target markets from the full Polymarket trade history snapshot.
 
 # The snapshot (orderFilled_complete.csv.xz) contains every trade ever on Polymarket -  150M+ rows 
-# downloaded github repo: https://github.com/warproxxx/poly_data
+# downloaded https://polydata-archive.s3.us-east-1.amazonaws.com/orderFilled_complete.csv.xz 
+# mainted by (maintained by warproxxx/poly_data, credits to @PendulumFlow)
 
 import json
 import subprocess # this is used to stream the xz file without decompressing it all at once ( )
 import csv
 from pathlib import Path
 
-IN = Path("orderFilled_complete.csv.xz") # the full trade history snapshot downloaded github repo
+IN = Path("orderFilled_complete.csv.xz") # the full trade history snapshot downloaded 
 OUT = Path("data/raw/trades_raw.csv")
 
 # each trade row has makerAssetId and takerAssetId:

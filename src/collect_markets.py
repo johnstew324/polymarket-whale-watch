@@ -50,6 +50,8 @@ def extract_markets(events):
                 "conditionId": market["conditionId"],
                 "question": market["question"],
                 "eventTitle": event.get("title"),
+                "startDate": market.get("startDate"),      # when trading opened
+                "createdAt": market.get("createdAt"),      # when market was created
                 "endDate": event.get("endDate") or market.get("endDate"),
                 "closedTime": event.get("closedTime"),
                 "volume": market.get("volumeNum"),
