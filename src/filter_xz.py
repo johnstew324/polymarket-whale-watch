@@ -18,6 +18,12 @@ token_to_condition = json.loads(Path("data/raw/token_to_condition.json").read_te
 
 print(f"Filtering {len(token_to_condition):,} token IDs from {IN}:")
 
+
+def get_match(token_id):
+    match = token_to_condition.get(token_id)
+    return (match["condition_id"], match["outcome"]) if match else (None, None)
+
+
 matched = 0
 checked = 0
 
@@ -29,15 +35,18 @@ with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1
     reader = csv.reader(line.decode() for line in proc.stdout)
     with open(OUT, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(next(reader) + ["condition_id"])  # header
+        writer.writerow(next(reader) + ["condition_id", "outcome"])  # header
         for row in reader:
             checked += 1
             if checked % 5_000_000 == 0:
                 print(f"  checked {checked:,} rows, matched {matched:,}")
             # check if either makerAssetId or takerAssetId is in our token list
-            cid = token_to_condition.get(row[2]) or token_to_condition.get(row[5])
+            cid, outcome = get_match(row[2]) 
+            if not cid:
+                cid, outcome = get_match(row[5])
+            
             if cid:
-                writer.writerow(row + [cid])
+                writer.writerow(row + [cid, outcome])
                 matched += 1
 
 print(f"\nDone: {matched:,} matching rows saved to {OUT}")

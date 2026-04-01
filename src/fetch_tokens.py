@@ -1,4 +1,4 @@
-# # Maps each market's condition ID to its YES/NO token IDs using the Polymarket CLOB API
+# maps each market's condition ID to its YES/NO token IDs using the Polymarket CLOB API
 import httpx
 import json
 import time
@@ -11,13 +11,13 @@ markets = json.loads(Path("data/raw/markets.json").read_text())
 
 high_vol = []
 for m in markets:
-    if m.get("volume", 0) >= 1000:
+    if (m.get("volume") or 0) >= 1000:
         high_vol.append(m)
 
-print(f"Fetching tokens for {len(high_vol)} markets (volume >= $1k).")
+print(f"Fetching tokens for {len(high_vol)} markets (volume >= $1k):")
+
 
 token_to_condition = {}
-
 for i, m in enumerate(high_vol):
     cid = m["conditionId"]
     try:
@@ -27,7 +27,10 @@ for i, m in enumerate(high_vol):
         # each market has 2 tokens (YES/NO), we map both to the same condition ID
     
         for token in r.json().get("tokens", []):
-            token_to_condition[str(token["token_id"])] = cid
+            token_to_condition[str(token["token_id"])] = {
+                "condition_id": cid,
+                "outcome": token.get("outcome")  # "Yes" or "No"
+            }
 
     # catch and log any errors
     except Exception as e:
