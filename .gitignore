@@ -214,3 +214,7 @@ data/raw/
 data/processed/
 data/analytical/
 *.pyc
+
+data/raw/*.json 
+data/raw/*.csv
+orderFilled_complete.csv.xz # from github https://github.com/warproxxx/poly_data

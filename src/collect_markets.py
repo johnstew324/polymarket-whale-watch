@@ -1,4 +1,3 @@
-# collect_markets.py
 import httpx # httpx better than requests for async and modern features - if we need it later, we can switch to async easily
 import json
 from pathlib import Path 
@@ -14,7 +13,10 @@ def fetch_all_geopolitical_events():
     limit = 100 # API limit is 100 ( as per documentation )
     
     while True: # while loop because we dont know how many events
-        r = httpx.get(f"{BASE}/events", params={ "limit": limit, "closed": "true", "tag_slug": "geopolitics","offset": offset }) # filters: closed markets only, tagged with "geopolitics"
+        r = httpx.get(f"{BASE}/events", params={ "limit": limit, 
+                                                "closed": "true", 
+                                                "tag_slug": "geopolitics",
+                                                "offset": offset }) # filters: closed markets only, tagged with "geopolitics"
         r.raise_for_status()  # crash loudly if error
         batch = r.json() # API returns a list of events
 
@@ -22,7 +24,7 @@ def fetch_all_geopolitical_events():
             break
             
         all_events.extend(batch) # add the batch to our full list of events
-        print(f"offset {offset}: got {len(batch)} events, total so far: {len(all_events)}")
+        print(f"offset {offset}: got {len(batch)} events, total: {len(all_events)}")
         
         if len(batch) < limit: # last page criterion ( if we got less than the limit)
             break
@@ -31,8 +33,7 @@ def fetch_all_geopolitical_events():
     
     return all_events
 
-# extract relevant market info from the events - 
-
+# extract relevant market info from the events 
 def extract_markets(events):
     markets = [] # flatten into a list of market recordsz
     for event in events: 
@@ -59,9 +60,9 @@ def extract_markets(events):
             })
     return markets
 
-if __name__ == "__main__":
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    events = fetch_all_geopolitical_events()
-    markets = extract_markets(events)
-    OUT.write_text(json.dumps(markets, indent=2))
-    print(f"\nDone — {len(markets)} markets saved to {OUT}")
+
+events = fetch_all_geopolitical_events()
+markets = extract_markets(events)
+
+OUT.write_text(json.dumps(markets, indent=2))
+print(f"\nDone: {len(markets)} markets saved to {OUT}")
