@@ -2,3 +2,4 @@ httpx
 dune-client
 python-dotenv
 pandas
+duckdb

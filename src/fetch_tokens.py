@@ -6,7 +6,7 @@ from pathlib import Path
 
 BASE = "https://clob.polymarket.com"
 
-# load markets and filter to high volume ones (>= $1k) 1`1`
+# load markets and filter to high volume ones (>= $1k) 
 markets = json.loads(Path("data/raw/markets.json").read_text())
 
 high_vol = []

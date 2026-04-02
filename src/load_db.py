@@ -49,7 +49,6 @@ df = pd.DataFrame(markets)
 
 def clean_tags(tags):
     return tags if isinstance(tags, list) else []
-
 df['tags'] = df['tags'].apply(clean_tags)
 
 con.execute("""
@@ -68,6 +67,8 @@ con.execute("""
 """)
 print(f"markets: {con.execute('SELECT COUNT(*) FROM markets').fetchone()[0]:,} rows")
 
+
+
 # token_map 
 token_raw = json.loads(Path("data/raw/token_to_condition.json").read_text())
 
@@ -77,10 +78,8 @@ for token_id, info in token_raw.items():
         "token_id":     token_id,
         "condition_id": info["condition_id"],
         "outcome":      info["outcome"]
-    })
-    
+    }) 
 token_df = pd.DataFrame(rows)
-
 
 con.execute("""
     CREATE OR REPLACE TABLE token_map AS
