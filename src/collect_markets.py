@@ -3,7 +3,7 @@ import json
 from pathlib import Path 
 
 BASE = "https://gamma-api.polymarket.com"
-OUT = Path("../data/raw/markets.json") 
+OUT = Path("data/raw/markets.json") 
 
 
 # paginates through the API - max limit 100 per request (aroudn 16 pages for current dataset)

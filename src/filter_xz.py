@@ -35,7 +35,7 @@ with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1
     reader = csv.reader(line.decode() for line in proc.stdout)
     with open(OUT, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(next(reader) + ["condition_id", "outcome"])  # header
+        writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
         for row in reader:
             checked += 1
             if checked % 5_000_000 == 0:
