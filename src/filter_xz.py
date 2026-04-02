@@ -1,6 +1,16 @@
 # Extracts trades for our target markets from the full Polymarket trade history snapshot.
-
-# The snapshot (orderFilled_complete.csv.xz) contains every trade ever on Polymarket -  150M+ rows 
+#
+# The snapshot (orderFilled_complete.csv.xz) contains every trade ever on Polymarket -  
+# 150M+ rows (30GB) - from 2023 to October 2025 - cant get more recent data due to subgraph cutoff.
+#
+# reason for cutoff was Polymarket migrated to a new exchange contract around (Oct 2025).
+# the new contract subgraph (polymarket-orderbook-resync/prod) exists 
+# but it does not expose maker/taker wallet addresses therefore making it useless for wallet-level analysis.
+# The original subgraph (orderbook-subgraph/0.0.1) stopped indexing at that point.
+#
+# also the polymarket data api only allows for 3100 trades per market - not enough for analysis snapshot more wallet data.
+#
+#
 # downloaded https://polydata-archive.s3.us-east-1.amazonaws.com/orderFilled_complete.csv.xz 
 # mainted by (maintained by warproxxx/poly_data, credits to @PendulumFlow)
 

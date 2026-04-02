@@ -1,6 +1,6 @@
-# Normalises raw on-chain trade data into wallet-centric rows.
+# normalises raw on-chain trade data into wallet-centric rows.
 # Each raw fill becomes two rows - one for maker, one for taker.
-# This lets us query by wallet directly without checking both maker/taker columns.
+# query by wallet directly without checking both maker/taker columns 
 import csv
 from pathlib import Path
 
@@ -53,7 +53,7 @@ with open(IN) as f_in, open(OUT, "w", newline="") as f_out:
             "transactionHash": tx
         })
 
-        # taker row - opposite side of the same fill
+        # taker row - opposite side 
         writer.writerow({
             "timestamp":    ts,
             "wallet":       row["taker"],
