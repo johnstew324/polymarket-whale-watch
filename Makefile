@@ -3,6 +3,8 @@
 
 .PHONY: download markets tokens filter process db queries pipeline clean
 
+
+# 1. data collection and processing
 # download raw snapshot 
 download:
 	curl -L -o orderFilled_complete.csv.xz \
@@ -34,3 +36,7 @@ pipeline: download markets tokens filter process db queries
 clean:
 	rm -f data/processed/trades_clean.csv
 	rm -f data/analytical/polymarket.ddb
+	rm -f data/processed/truth_social_sentiment.csv
+
+clean-notebooks:
+	jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
