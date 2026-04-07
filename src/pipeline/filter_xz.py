@@ -17,9 +17,10 @@
 import json
 import subprocess # this is used to stream the xz file without decompressing it all at once ( )
 import csv
+import lzma 
 from pathlib import Path
 
-IN = Path("orderFilled_complete.csv.xz") # the full trade history snapshot downloaded 
+IN = Path("data/raw/orderFilled_complete.csv.xz") # the full trade history snapshot downloaded 
 OUT = Path("data/raw/trades_raw.csv")
 
 # each trade row has makerAssetId and takerAssetId:
@@ -38,25 +39,46 @@ matched = 0
 checked = 0
 
 
+#for mac 
 # we use xzcat to stream the decompressed file line by line - so we dont have to decompress the whole 30GB file at once 
 # which is too large to download and caused crashes when I tried to decompress it locally.
 
-with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1024) as proc:
-    reader = csv.reader(line.decode() for line in proc.stdout)
-    with open(OUT, "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
-        for row in reader:
-            checked += 1
-            if checked % 5_000_000 == 0:
-                print(f"  checked {checked:,} rows, matched {matched:,}")
+#with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1024) as proc:
+reader = csv.reader(line.decode() for line in proc.stdout)
+with open(OUT, "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
+    for row in reader:
+        checked += 1
+        if checked % 5_000_000 == 0:
+            print(f"  checked {checked:,} rows, matched {matched:,}")
             # check if either makerAssetId or takerAssetId is in our token list
-            cid, outcome = get_match(row[2]) 
-            if not cid:
-                cid, outcome = get_match(row[5])
+        cid, outcome = get_match(row[2]) 
+        if not cid:
+            cid, outcome = get_match(row[5])
             
-            if cid:
-                writer.writerow(row + [cid, outcome])
-                matched += 1
+        if cid:
+            writer.writerow(row + [cid, outcome])
+            matched += 1
+
+#for windows 
+# lzma.open streams the .xz file line by line - same behaviour as xzcat
+# without decompressing the whole 30GB at once
+#with lzma.open(IN, mode="rt", encoding="utf-8") as f:
+#    reader = csv.reader(f)
+#    with open(OUT, "w", newline="") as out_f:
+#        writer = csv.writer(out_f)
+#        writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
+#        for row in reader:
+#            checked += 1
+#            if checked % 5_000_000 == 0:
+#                print(f"  checked {checked:,} rows, matched {matched:,}")
+#            cid, outcome = get_match(row[2])
+#            if not cid:
+#                cid, outcome = get_match(row[5])
+#            if cid:
+#                writer.writerow(row + [cid, outcome])
+#                matched += 1
+
 
 print(f"\nDone: {matched:,} matching rows saved to {OUT}")
