@@ -1,5 +1,5 @@
 httpx
-dune-client
+dune-client # data retrieval from Dune Analytics ( blockchain analytics platform )
 python-dotenv
 pandas
 duckdb

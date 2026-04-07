@@ -10,22 +10,22 @@ download:
 
 # each step of pipeline 
 markets:
-	python src/collect_markets.py
+	python src/pipeline/collect_markets.py
 
 tokens:
-	python src/fetch_tokens.py
+	python src/pipeline/fetch_tokens.py
 
 filter:
-	python src/filter_xz.py
+	python src/pipeline/filter_xz.py
 
 process:
-	python src/process_trades.py
+	python src/pipeline/process_trades.py
 
 db:
-	python src/load_db.py
+	python src/pipeline/load_db.py
 
 queries:
-	python src/query_tests.py
+	python src/pipeline/query_tests.py
 
 # full pipeline 
 pipeline: download markets tokens filter process db queries
