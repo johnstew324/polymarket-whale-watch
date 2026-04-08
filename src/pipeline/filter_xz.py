@@ -43,23 +43,23 @@ checked = 0
 # we use xzcat to stream the decompressed file line by line - so we dont have to decompress the whole 30GB file at once 
 # which is too large to download and caused crashes when I tried to decompress it locally.
 
-#with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1024) as proc:
-reader = csv.reader(line.decode() for line in proc.stdout)
-with open(OUT, "w", newline="") as f:
-    writer = csv.writer(f)
-    writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
-    for row in reader:
-        checked += 1
-        if checked % 5_000_000 == 0:
-            print(f"  checked {checked:,} rows, matched {matched:,}")
-            # check if either makerAssetId or takerAssetId is in our token list
-        cid, outcome = get_match(row[2]) 
-        if not cid:
-            cid, outcome = get_match(row[5])
-            
-        if cid:
-            writer.writerow(row + [cid, outcome])
-            matched += 1
+with subprocess.Popen(["xzcat", str(IN)], stdout=subprocess.PIPE, bufsize=1024*1024) as proc:
+    reader = csv.reader(line.decode() for line in proc.stdout)
+    with open(OUT, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(next(reader) + ["condition_id", "outcomes"])  # header
+        for row in reader:
+            checked += 1
+            if checked % 5_000_000 == 0:
+                print(f"  checked {checked:,} rows, matched {matched:,}")
+                # check if either makerAssetId or takerAssetId is in our token list
+            cid, outcome = get_match(row[2]) 
+            if not cid:
+                cid, outcome = get_match(row[5])
+                
+            if cid:
+                writer.writerow(row + [cid, outcome])
+                matched += 1
 
 #for windows 
 # lzma.open streams the .xz file line by line - same behaviour as xzcat
