@@ -148,13 +148,14 @@ def main(local_path: str | None = None,
     print("\n" + "=" * 60)
     print("STEP 5 — Train LDA model")
     print("=" * 60)
-    lda_model, _ = train_lda(geo_df)
+    lda_model, vectorizer = train_lda(geo_df)
 
     print("\n" + "=" * 60)
     print("STEP 6 — LDA topic word clouds")
     print("=" * 60)
     plot_lda_wordclouds(
         lda_model,
+        vectorizer,
         os.path.join(figures_dir, "lda_topic_wordclouds.png"),
     )
 
