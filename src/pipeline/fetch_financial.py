@@ -96,7 +96,6 @@ TAG_PRIORITY = [
     "geopolitics",  # catch-all last
 ]
 
-
 def get_tickers_for_market(tags: list) -> list:
     """map a market's tags to (ticker, category) pairs, deduplicated."""
     seen_tickers = set()
