@@ -5,13 +5,13 @@ Group member: Adam
 
 This file explains what each Python script does and how to run the full NLP
 pipeline that was originally in TRUTH_SOCIAL_NLP.ipynb. Running run_nlp.py
-produces all figures and CSVs in one command.
+(Step 5, when complete) will reproduce all figures and CSVs in one command.
 
 All scripts live in the sentiment/ folder. Run everything from the PROJECT ROOT
 (the folder containing this file), not from inside sentiment/.
 
 --------------------------------------------------------------------------------
-QUICK START
+QUICK START (once all steps are implemented)
 --------------------------------------------------------------------------------
 
   python sentiment/run_nlp.py --local truth_social_archive.csv
@@ -28,20 +28,16 @@ This single command produces:
 DEPENDENCIES
 --------------------------------------------------------------------------------
 
-Install required packages:
+Install required packages before running:
 
-  pip install pandas numpy torch transformers wordcloud scikit-learn nltk matplotlib
+  pip install pandas numpy torch transformers wordcloud scikit-learn gensim nltk matplotlib pytrends
 
-Note: gensim is NOT required. LDA uses sklearn.decomposition.LatentDirichletAllocation
-which is included in scikit-learn and installs on all Python versions without a
-C++ compiler.
-
-Download the NLTK stopwords corpus (one-time):
+Also download the NLTK stopwords corpus (one-time):
 
   python -c "import nltk; nltk.download('stopwords')"
 
 FinBERT (ProsusAI/finbert) is downloaded automatically from Hugging Face on
-first run (~450MB). Requires internet connection the first time only.
+first run. Requires an internet connection the first time only (~450MB).
 
 --------------------------------------------------------------------------------
 FILE-BY-FILE GUIDE
@@ -70,6 +66,7 @@ sentiment/market_keywords.py
 sentiment/trend_signal.py
   Fetches Google Trends data per market via pytrends. Rate limited — sleeps
   10 seconds between API calls (Google enforces this).
+
   Not run directly; called from the pytrends notebook (Oisin).
 
 ── NEW FILES (NLP pipeline, replaces TRUTH_SOCIAL_NLP.ipynb) ───────────────────
@@ -78,6 +75,7 @@ sentiment/stopwords.py                                          [STEP 1 — DONE
   Defines ALL_STOPS — the shared stopword set used across the NLP pipeline.
   Combines: NLTK English stopwords + custom corpus-specific stops (geo anchors,
   Trump boilerplate, punctuation artefacts) + WordCloud built-ins.
+
   Do not run directly. Imported by wordcloud_plots.py and lda_analysis.py.
 
 sentiment/wordcloud_plots.py                                    [STEP 2 — DONE]
@@ -85,24 +83,22 @@ sentiment/wordcloud_plots.py                                    [STEP 2 — DONE
     - Raw frequency word cloud (all 770 geopolitical posts)
     - TF-IDF weighted word cloud (distinctive terms per post)
     - Side-by-side word clouds split by market type (escalation vs benign)
+
   Imports ALL_STOPS from stopwords.py and TRUTH_SOCIAL_MARKET_CONFIG from
   truth_social_keywords.py. Do not run directly. Called by run_nlp.py.
 
 sentiment/lda_analysis.py                                       [STEP 3 — DONE]
   LDA topic modelling on the geopolitical post corpus:
-    - preprocess_for_lda(): tokenises with regex, removes ALL_STOPS
-    - train_lda(): builds document-term matrix (CountVectorizer), trains
-      5-topic LDA (sklearn LatentDirichletAllocation, 15 iterations,
-      random_state=42), prints top words per topic
+    - preprocess_for_lda(): tokenises, removes ALL_STOPS, filters short tokens
+    - train_lda(): builds Gensim dictionary + corpus, trains 5-topic LDA model
+      (15 passes, alpha/eta auto, random_state=42), prints top words per topic
     - plot_lda_wordclouds(): saves one word cloud per topic as a single figure
-
-  Uses sklearn instead of gensim — no C++ compiler needed, works on Python 3.14.
 
   Note: 4 of 5 topics capture domestic Trump political rhetoric; Topic 4
   ("War, Peace & Ceasefire Talks") is the core geopolitical signal.
   Topic labels are defined in TOPIC_LABELS inside this file.
 
-  Do not run directly. Called by run_nlp.py.
+  Imports ALL_STOPS from stopwords.py. Do not run directly. Called by run_nlp.py.
 
 sentiment/sentiment_timeseries.py                               [STEP 4 — DONE]
   Scores all 770 geopolitical posts with FinBERT and plots rolling sentiment:
@@ -113,6 +109,7 @@ sentiment/sentiment_timeseries.py                               [STEP 4 — DONE
     - plot_sentiment_timeseries(): plots 4-week rolling average FinBERT net
       score with green/red fill regions and orange vertical lines marking
       each Polymarket resolution date.
+
   Do not run directly. Called by run_nlp.py.
 
 sentiment/run_nlp.py                                            [STEP 5 — DONE]
@@ -156,6 +153,7 @@ NOTES FOR GROUP MEMBERS
 - The FinBERT scoring step (~770 posts) takes a few minutes on CPU.
 - If you get an NLTK error, run:
     python -c "import nltk; nltk.download('stopwords')"
-- truth_social_archive.csv must be in the project root.
+- truth_social_archive.csv must be present in the project root.
+  It is the local Trump Truth Social post archive (~Oct 2025).
 
 ================================================================================
