@@ -211,7 +211,7 @@ __marimo__/
 
 ## added 
 data/raw/
-data/processed/
+data/processed/*
 
 !data/processed/sentiment/
 !data/processed/sentiment/*.csv
