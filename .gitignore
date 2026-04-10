@@ -212,6 +212,10 @@ __marimo__/
 ## added 
 data/raw/
 data/processed/
+
+!data/processed/sentiment/
+!data/processed/sentiment/*.csv
+
 data/analytical/
 *.pyc
 
