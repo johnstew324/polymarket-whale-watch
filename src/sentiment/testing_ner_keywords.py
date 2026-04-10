@@ -29,11 +29,11 @@ print(f"Empty keyword lists:  {len(empty)}")
 print(f"Single keyword only:  {len(single)}")
 print(f"Avg keywords/market:  {sum(keyword_counts)/len(keyword_counts):.2f}")
 
-print(f"\n--- Empty markets ({len(empty)}) ---")
+print(f"\nEmpty markets ({len(empty)})")
 for q in empty:
     print(f"  {q}")
 
-print(f"\n--- Sample of single-keyword markets (first 20) ---")
+print(f"\nSample of single-keyword markets (first 20)")
 for q, kws in single[:20]:
     print(f"  {kws} ← {q}")
 
