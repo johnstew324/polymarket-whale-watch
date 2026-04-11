@@ -3,7 +3,15 @@ dune-client # data retrieval from Dune Analytics ( blockchain analytics platform
 python-dotenv
 pandas
 duckdb
-torch
+
+# sentiment FT ProQuest
+torch # install CPU-only version with:  "pip install torch --index-url https://download.pytorch.org/whl/cpu"
 transformers
+
+# NER keyword extraction + Truth social 
 spacy # python -m spacy download en_core_web_sm
 vaderSentiment
+
+# notebooks
+jupyter
+matplotlib

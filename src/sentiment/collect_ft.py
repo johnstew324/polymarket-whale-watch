@@ -5,20 +5,17 @@
 #         data/analytical/polymarket.ddb
 # output: data/processed/sentiment/ft_sentiment.csv
 # schema: condition_id, source, week_start, sentiment_score, sentiment_direction, post_count
-#
-# run: python -m src.sentiment.collect_ft
 
-import sys
+
+
 from pathlib import Path
 from datetime import timezone
 
-sys.path.insert(0, str(Path(__file__).parent))
 
 import pandas as pd
 import duckdb
 from ner_keywords import extract_keywords, keywords_to_pattern
 
-# --- paths ---
 DB       = Path("data/analytical/polymarket.ddb")
 PQ_DIR   = Path("data/processed/proquest")
 OUT_DIR  = Path("data/processed/sentiment")
@@ -26,7 +23,7 @@ OUT_FILE = OUT_DIR / "ft_sentiment.csv"
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# corpora available locally — add new topics here as files are downloaded
+# corpora available locally add new topics here as files are downloaded
 AVAILABLE_CORPORA = {
     "gaza", "hamas", "hezbollah", "iran", "israel",
     "lebanon", "oil", "putin", "trump", "ukraine",
@@ -57,15 +54,14 @@ TAG_ALIASES = {
     "gaza-floatilla":       ["gaza"],
 }
 
-# min articles per week to include — fewer is too noisy
+# min articles per week to include - fewer is too noisy
 MIN_POSTS = 2
 
 # direction threshold for FinBERT net_score
 DIRECTION_THRESHOLD = 0.05
 
 
-def get_corpora_for_tags(tags: list) -> list:
-    """Return list of corpus names relevant to a market's tags."""
+def get_corpora_for_tags(tags):
     corpora = set()
     for tag in tags:
         if tag in AVAILABLE_CORPORA:
@@ -77,7 +73,7 @@ def get_corpora_for_tags(tags: list) -> list:
     return list(corpora)
 
 
-def compound_to_direction(score: float) -> int:
+def compound_to_direction(score):
     if score > DIRECTION_THRESHOLD:
         return 1
     if score < -DIRECTION_THRESHOLD:
@@ -85,10 +81,10 @@ def compound_to_direction(score: float) -> int:
     return 0
 
 
-# --- load pre-scored corpora (lazy cache) ---
+#  load pre-scored corpora (lazy cache)
 _corpus_cache = {}
 
-def load_scored_corpus(topic: str) -> pd.DataFrame | None:
+def load_scored_corpus(topic):
     if topic in _corpus_cache:
         return _corpus_cache[topic]
 
@@ -105,8 +101,7 @@ def load_scored_corpus(topic: str) -> pd.DataFrame | None:
     return df
 
 
-def get_combined_corpus(corpora: list) -> pd.DataFrame | None:
-    """Load and concatenate multiple pre-scored corpora, deduplicating."""
+def get_combined_corpus(corpora):
     frames = []
     for topic in corpora:
         df = load_scored_corpus(topic)
@@ -120,7 +115,7 @@ def get_combined_corpus(corpora: list) -> pd.DataFrame | None:
     return combined
 
 
-# --- load markets ---
+# load markets
 print("Loading markets from DuckDB...")
 con = duckdb.connect(str(DB), read_only=True)
 markets = con.execute("""
@@ -133,31 +128,33 @@ markets = con.execute("""
     ORDER BY m.startDate
 """).fetchdf()
 con.close()
-print(f"  {len(markets)} markets loaded")
+print(f"{len(markets)} markets loaded")
 
-# --- TEST: Yemen only — remove before full run ---
 
+
+#  TEST: Yemen only - remove before full run 
 markets = markets[
     markets["tags"].apply(lambda tags: "yemen" in list(tags) if tags is not None else False)
 ]
 print(f"  filtered to {len(markets)} Yemen markets for testing")
 
-# --- main loop ---
+
+
+#  main loop 
 print(f"\nProcessing {len(markets)} markets...")
-print("-" * 60)
 
 output_rows = []
 empty_count = 0
 
 for i, market in enumerate(markets.itertuples(), 1):
-    cid      = market.conditionId
+    cid  = market.conditionId
     question = market.question
-    start    = market.startDate
-    end      = market.endDate
-    tags     = list(market.tags) if market.tags is not None else []
+    start  = market.startDate
+    end  = market.endDate
+    tags   = list(market.tags) if market.tags is not None else []
 
     if i % 100 == 0 or i == len(markets):
-        print(f"  [{i}/{len(markets)}] processed ({empty_count} markets with no matches so far)")
+        print(f"[{i}/{len(markets)}] processed ({empty_count} markets with no matches so far)")
 
     # get relevant corpora from tags
     corpora = get_corpora_for_tags(tags)
@@ -236,7 +233,8 @@ for i, market in enumerate(markets.itertuples(), 1):
 
     output_rows.append(weekly)
 
-# --- write output ---
+
+
 print(f"\nDone. Writing output...")
 print(f"  Markets with sentiment data: {len(markets) - empty_count}")
 print(f"  Markets with no matches:     {empty_count}")
