@@ -1,4 +1,3 @@
-
 # extracts named entities and keywords from a Polymarket question string
 # used by all sentiment collection scripts to filter source text by relevance
 #
