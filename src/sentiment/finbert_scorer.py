@@ -21,21 +21,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from tqdm import tqdm
 
 
-TOPICS = [
-    #"gaza",
-    #"hamas",
-    #"hezbollah",
-    #"iran",
-    #"israel",
-    #"lebanon",
-    #"oil",
-    #"putin",
-    #"trump",
-    #"ukraine",
-    #"venezuela",
-    "yemen",
-    # add new topics here as files are downloaded
-]
+TOPICS = ["russia_ukraine"]  # test
 
 PQ_DIR     = Path("data/processed/proquest")
 MODEL_NAME = "ProsusAI/finbert"

@@ -20,7 +20,8 @@ KEEP_ENTITY_TYPES = {"GPE", "PERSON", "ORG", "NORP"}
  
  
 def _normalise(text):
-    return KNOWN_NAMES.get(text.lower(), text)
+    clean = re.sub(r"'s$", "", text.strip(), flags=re.IGNORECASE) # strip possessives before lookup so "Israel's" -> "Israel" etc.
+    return KNOWN_NAMES.get(clean.lower(), clean)
  
 def extract_keywords(question, max_keywords = 6):
     # prepend neutral prefix so names at position 0 aren't misread as verbs
@@ -61,13 +62,20 @@ def extract_keywords(question, max_keywords = 6):
     # 3. token-level KNOWN_NAMES fallback
     # catches names spaCy doesn't recognise at all (not in its vocabulary)
     # POS guard skips pronouns/verbs so "us" as a pronoun doesn't map to "USA"
-    for token in doc:
-        if token.pos_ in ("VERB", "PRON", "ADP", "DET", "CCONJ", "SCONJ"):
-            continue
-        canonical = KNOWN_NAMES.get(token.text.lower())
-        if canonical and canonical.lower() not in seen:
-            seen.add(canonical.lower())
-            keywords.append(canonical)
+    tokens = [
+        t for t in doc
+        if t.pos_ not in ("VERB", "PRON", "ADP", "DET", "CCONJ", "SCONJ")
+    ]
+    for i, token in enumerate(tokens):
+        for n in (3, 2, 1):
+            if i + n > len(tokens):
+                continue
+            phrase = " ".join(t.text for t in tokens[i:i + n]).lower()
+            canonical = KNOWN_NAMES.get(phrase)
+            if canonical and canonical.lower() not in seen:
+                seen.add(canonical.lower())
+                keywords.append(canonical)
+                break  # don't also add the individual tokens as separate keywords
  
     return keywords[:max_keywords]
  

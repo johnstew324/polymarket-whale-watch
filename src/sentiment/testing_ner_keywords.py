@@ -44,6 +44,6 @@ for cid, q in questions:
     all_keywords.extend(extract_keywords(q))
 
 freq = Counter(all_keywords).most_common()
-print(f"\n--- All {len(freq)} unique keywords ---")
+print(f"\n All {len(freq)} unique keywords")
 for kw, count in freq:
     print(f"  {count:>4}  {kw}")

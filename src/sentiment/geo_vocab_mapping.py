@@ -33,6 +33,20 @@ STOPWORDS = {
     "people", "power", "world", "climate", "economic", "development",
     "military", "human", "shield", "proxy", "war", "oblast",
     "da", "diy", "onseptember", "clock", "pay", "pm", "country",
+
+    "nord", "stream",  # once consumed fix is in, these shouldn't appear but belt-and-braces
+    "iron", "dome",
+    "suez", "canal",
+    "hostage", "aircraft", "farmer", "heritage",
+    "joe",   # Biden fragment
+    "steve", # no last name
+    "marco", # Rubio fragment - handle via KNOWN_NAMES instead
+    "javier", # Milei fragment
+    "recep", "tayyip",  # Erdoğan fragments
+    "luiz", "inácio", "silva",  # Lula fragments
+    "nord", "stream",  # once consumed fix is in, these shouldn't appear but belt-and-braces
+    "iron", "dome",
+    "suez", "canal", "chancellor", "sovereign", "sovereignty",
 }
 
 # maps lowercase token/phrase  canonical display form
@@ -55,6 +69,7 @@ KNOWN_NAMES = {
     # netanyahu
     "netanyahu":                        "Netanyahu",
     "benjamin netanyahu":               "Netanyahu",
+    "benjamin":                         "Netanyahu",
 
     # putin
     "putin":                            "Putin",
@@ -110,6 +125,7 @@ KNOWN_NAMES = {
 
     # lula
     "lula":                             "Lula",
+    "luiz inácio lula da silva":        "Lula",
     "luiz inácio lula da silva":        "Lula",
     "lula da silva":                    "Lula",
 
@@ -179,6 +195,7 @@ KNOWN_NAMES = {
     "ursula von der leyen":             "Von der Leyen",
     "ursula":                           "Von der Leyen",
     "leyen":                            "Von der Leyen",
+    "ursula von der":           "Von der Leyen",
 
     # pope
     "pope":                             "Pope",
@@ -193,6 +210,43 @@ KNOWN_NAMES = {
     # carney
     "carney":                           "Carney",
     "mark carney":                      "Carney",
+
+    # people missing
+    "kim jong un":              "Kim Jong Un",
+    "kim":                      "Kim Jong Un",   # careful, ambiguous
+    "jerome powell":            "Jerome Powell",
+    "powell":                   "Jerome Powell",
+    "marco rubio":              "Marco Rubio",
+    "rubio":                    "Marco Rubio",
+    "greta thunberg":           "Greta Thunberg",
+    "greta thunberg's":         "Greta Thunberg",
+    "trudeau":                  "Trudeau",
+    "justin trudeau":           "Trudeau",
+    "obama":                    "Obama",
+    "shigeru ishiba":           "Ishiba",
+    "ishiba":                   "Ishiba",
+    "pedro sánchez":            "Sánchez",
+    "guterres":                 "Guterres",
+    "antónio guterres":         "Guterres",
+    "lai ching-te":             "Lai Ching-te",
+    "pablo durov":              "Durov",
+    "durov":                    "Durov",
+    "pablo durov":               "Durov",
+    "pavel durov":               "Durov",
+
+    "mrbeast":                  "MrBeast",
+    "sinwar":                   "Sinwar",
+    "yahya sinwar":             "Sinwar",
+    "ben gvir":                 "Ben Gvir",
+    "reza pahlavi":             "Reza Pahlavi",
+
+
+    "giorgia":                      "Meloni",     # showing solo
+    "javier":                       "Milei",      # or just stopword it
+    "marco":                        "Marco Rubio",
+
+    
+
 
     # groups / factions
     "houthi":                           "Houthi",
@@ -215,15 +269,21 @@ KNOWN_NAMES = {
     "united kingdom":                   "UK",
     "eu":                               "EU",
     "european union":                   "EU",
+    "\"european union":                 "EU",
+
     "uae":                              "UAE",
     "nato":                             "NATO",
+
+    "ukraini":                        "Ukraine",
 
     # demonyms → country
     "iranian":                          "Iran",
     "israeli":                          "Israel",
+    "israel's":                         "Israel",
     "russian":                          "Russia",
     "syrian":                           "Syria",
     "turkish":                          "Turkey",
+    "türkiye":                          "Turkey",
     "armenian":                         "Armenia",
     "lebanese":                         "Lebanon",
     "chinese":                          "China",
@@ -264,4 +324,37 @@ KNOWN_NAMES = {
     "south korea":                      "South Korea",
     "north korea":                      "North Korea",
     "saudi arabia":                     "Saudi Arabia",
+
+
+
+    "artificial intelligence":  "AI",
+    "a.i":                          "AI",
+    "iran nuke":                "Iran",           # or keep as-is?
+    "hezbollah ceasefire":      "Hezbollah",
+    "ukraine ceasefire":        "Ukraine",
+    "abraham accord":           "Abraham Accord",
+    "warsaw pact":              "Warsaw Pact",
+    "west bank":                "West Bank",
+    "the west bank":            "West Bank",
+    "the white house":          "White House",
+    "white house":                  "White House",
+    "the house of councillors": "House of Councillors",
+    "the un general assembly":  "UN General Assembly",
+    "un general assembly":      "UN General Assembly",
+
+
+
+
+
+    # orgs/groups missing
+    "doge":                     "DOGE",
+    "icc":                      "ICC",
+    "who":                      "WHO",           # careful - spaCy will grab "who" as pronoun a lot
+    "wto":                      "WTO",
+    "g7":                       "G7",
+    "spacex":                   "SpaceX",
+    "deepseek":                 "DeepSeek",
+    "tesla":                    "Tesla",
+    "tiktok":                   "TikTok",
+    "xai":                      "xAI",
 }
