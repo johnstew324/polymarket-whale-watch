@@ -12,21 +12,29 @@ from dateutil import parser as dtparser
 # add topics here as files are downloaded .
 # common tags in the market data
 TOPICS = [
-    "gaza",
-    "hamas",
-    "hezbollah",
-    "iran",
-    "israel",
-    "lebanon",
-    "oil",
-    "putin",
-    "trump",
-    "ukraine",
-    "venezuela",
-    "yemen",
-    # add new topics here as files are downloaded
-    # "syria", "china","north-korea", "south-korea","india-pakistan", "turkey","japan","poland",
-    # "uk","saudi-arabia","france","nato","qatar","taiwan","zelensky", "khamenei","netanyahu","houthis","thailand-cambodia","tariffs", "trade-war", "us-iran", "venezuela",
+    # new
+    "ceasefire_russia_ukraine",
+    "china_taiwan",
+    "gaza_israel",
+    "gaza_usa",
+    "hamas_israel",
+    "hezbollah_nasrallah",
+    "israel_lebanon",
+    "israel_saudi",
+    "israel_syria",
+    "israel_yemen",
+    "kupiansk_russia",
+    "moscow_ukraine",
+    "netanyahu_unga",
+    "pokrovsk_russia",
+    "putin_zelenskyy",
+    "russia_siversk",
+    "russia_sudzha",
+    "russia_syria",
+    "russia_ukraine",
+    "trump_putin",
+    "trump_zelenskyy",
+    "zelenskyy",
 ]
 
 IN_DIR  = Path("data/raw/proquest")
@@ -61,11 +69,11 @@ def parse_topic(topic):
             if len(art.strip()) < 100:
                 continue
 
-            title       = extract(r"^(.*?)\n", art)
-            author      = extract(r"Author:\s*(.*)", art)
+            title = extract(r"^(.*?)\n", art)
+            author  = extract(r"Author:\s*(.*)", art)
             publication = extract(r"Publication title:\s*(.*)", art)
-            doc_type    = extract(r"Document type:\s*(.*)", art)
-            doc_id      = extract(r"ProQuest document ID:\s*(.*)", art)
+            doc_type = extract(r"Document type:\s*(.*)", art)
+            doc_id   = extract(r"ProQuest document ID:\s*(.*)", art)
 
             # date
             date_raw = extract(r"Publication date:\s*(.*)", art)

@@ -73,6 +73,8 @@ print(con.execute("""
     LIMIT 20
 """).fetchdf().to_string(index=False))
 
+# 
+
 
 
 print("\ntrades coverage: how many markets have trade data:")
@@ -107,6 +109,24 @@ print(con.execute("""
     LIMIT 30
 """).fetchdf().to_string(index=False))
 
+
+# tag breakdown only for date ranges we have trades for 
+print("\ntag breakdown in markets with trades:")
+print(con.execute("""
+    SELECT tag, COUNT(*) AS markets
+    FROM (
+        SELECT UNNEST(tags) as tag 
+        FROM markets m
+        WHERE EXISTS (
+            SELECT 1 
+            FROM trades t 
+            WHERE t.condition_id = m.conditionId
+        )
+    )
+    GROUP BY tag
+    ORDER BY markets DESC
+    LIMIT 40
+""").fetchdf().to_string(index=False))
 
 # price sanity check 
 print("\nprice sanity: should be between 0 and 1 on a prediction market:")
@@ -146,6 +166,7 @@ INNER JOIN trades t ON t.condition_id = m.conditionId
 WHERE m.resolvedOutcome IN ('Yes', 'No');
 """).fetchdf().to_string(index=False)) 
 
+# include coniditionId
 print("\n volume of markets")
 print(con.execute("""
     SELECT 
@@ -160,17 +181,18 @@ INNER JOIN (SELECT DISTINCT condition_id FROM trades) t
 WHERE m.resolvedOutcome IN ('Yes', 'No');
                   """).fetchdf().to_string(index=False))
 
-print("\n sample of markets with trades:")
+print("\n volume of markets with conditionIds")
 print(con.execute("""
-        SELECT DISTINCT ON (tag) tag, question, volume, closedTime
-        FROM (
-            SELECT UNNEST(tags) as tag, question, volume, closedTime 
-            FROM markets 
-            WHERE resolvedOutcome IN ('Yes','No') AND volume > 50000
-        )
-        ORDER BY tag, volume DESC;
-""").fetchdf().to_string(index=False))
-
+    SELECT 
+    COUNT(*) as markets,
+    ROUND(MIN(volume)) as min_vol,
+    ROUND(AVG(volume)) as avg_vol,
+    ROUND(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY volume)) as median_vol,
+    ROUND(MAX(volume)) as max_vol
+FROM markets m
+WHERE m.conditionId IN (SELECT DISTINCT condition_id FROM trades)
+AND m.resolvedOutcome IN ('Yes', 'No');
+                  """).fetchdf().to_string(index=False))    
 con.close()
 
 
