@@ -52,24 +52,34 @@ collect-ft:
 # run Truth Social sentiment pipeline
 collect-ts:
 	python -m src.sentiment.collect_truth_social
+
+# pull yfinance weekly financial signals
+collect-financial:
+	python -m src.sentiment.collect_financial
  
-# load all sentiment CSVs into DuckDB
+# load sentiment + financial CSVs into DuckDB
 load-sentiment:
-	python -m src.pipeline.load_sentiment
+	python -m src.pipeline.load_sentiment_financial_db
+
+# coverage report - how many markets have sentiment/financial data
+inspect-coverage:
+	python -m src.pipeline.inspect_coverage	
+
+
  
-# full FT pipeline (parse → score → collect → load)
+# full FT pipeline (parse -> score -> collect -> load)
 sentiment-ft: parse-proquest score-ft collect-ft load-sentiment
  
 # full Truth Social pipeline
 sentiment-ts: collect-ts load-sentiment
- 
 
-# todo : add to database
-# todo : financial stocks
+# full financial pipeline
+sentiment-financial: collect-financial load-sentiment
+
 # todo : maybe pytrends
 
 # full sentiment pipeline (both sources)
-sentiment: sentiment-ts sentiment-ft
+sentiment: sentiment-ts sentiment-ft sentiment-financial
 
 
 # include analysis pipeline
