@@ -6,8 +6,6 @@
 # output: data/processed/sentiment/ft_sentiment.csv
 # schema: condition_id, source, week_start, sentiment_score, sentiment_direction, post_count
 
-
-
 from pathlib import Path
 from datetime import timezone
 
@@ -24,112 +22,10 @@ OUT_FILE = OUT_DIR / "ft_sentiment.csv"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # corpora available locally add new topics here as files are downloaded
-AVAILABLE_CORPORA = {
-    "ceasefire_russia_ukraine",
-    "china_taiwan",
-    "gaza_israel",
-    "gaza_usa",
-    "hamas_israel",
-    "hezbollah_nasrallah",
-    "israel_lebanon",
-    "israel_saudi",
-    "israel_syria",
-    "israel_yemen",
-    "kupiansk_russia",
-    "moscow_ukraine",
-    "netanyahu_unga",
-    "pokrovsk_russia",
-    "putin_zelenskyy",
-    "russia_siversk",
-    "russia_sudzha",
-    "russia_syria",
-    "russia_ukraine",
-    "trump_putin",
-    "trump_zelenskyy",
-    "zelenskyy",
-    # add new corpora here as they are scored overnight
-    # "iran_israel",
-    # "iran_usa",
-    # "iran_khamenei",
-    # "houthi_israel",
-    # "usa_yemen",
-    # "hezbollah_israel",
-    # "iraq_israel",
-    # "damascus_israel",
-    # "iran_trump",
-    # "congress_iran",
-    # "india_pakistan",
-    # "north_korea_south_korea",
-    # "north_korea",
-    # "yoon",
-    # "xi_jinping",
-    # "kim_jong_un",
-    # "south_korea_trump",
-    # "putin_trump_zelenskyy",
-    # "trump_unga",
-    # "trump_ukraine",
-    # "merz_trump",
-    # "al_sharaa",
-    # "mbs",
-    # "syria",
-    # "syria_usa",
-}
+from src.sentiment.pipeline_config import AVAILABLE_CORPORA, KEYWORD_TO_CORPORA
 
-# manual aliases for tags that don't directly match a corpus name
-# maps NER keywords → which corpora contain relevant articles
-# when a market's NER keywords include a term, we load the matching corpora
-KEYWORD_TO_CORPORA = {
-    # Israel/Gaza/Hamas
-    "Israel":       ["gaza_israel", "hamas_israel", "israel_lebanon",
-                     "israel_syria", "israel_yemen", "israel_saudi", "netanyahu_unga"],
-    "Gaza":         ["gaza_israel", "gaza_usa", "hamas_israel"],
-    "Hamas":        ["hamas_israel"],
-    "Netanyahu":    ["netanyahu_unga", "hamas_israel"],
-    "Hezbollah":    ["hezbollah_nasrallah", "israel_lebanon"],
-    "Nasrallah":    ["hezbollah_nasrallah"],
-    "Lebanon":      ["israel_lebanon"],
-    "Syria":        ["israel_syria", "russia_syria"],
-    "Houthi":       ["israel_yemen"],
-    "Saudi Arabia": ["israel_saudi"],
- 
-    # Russia/Ukraine
-    "Russia":       ["russia_ukraine", "moscow_ukraine", "russia_syria",
-                     "ceasefire_russia_ukraine", "russia_siversk", "russia_sudzha"],
-    "Ukraine":      ["russia_ukraine", "moscow_ukraine", "trump_zelenskyy",
-                     "ceasefire_russia_ukraine"],
-    "Putin":        ["trump_putin", "putin_zelenskyy", "russia_ukraine"],
-    "Zelenskyy":    ["zelenskyy", "trump_zelenskyy", "putin_zelenskyy"],
-    "Moscow":       ["moscow_ukraine"],
-    "Pokrovsk":     ["pokrovsk_russia"],
-    "Kupiansk":     ["kupiansk_russia"],
-    "Sudzha":       ["russia_sudzha"],
-    "Siversk":      ["russia_siversk"],
-    "Crimea":       ["russia_ukraine", "ceasefire_russia_ukraine"],
- 
-    # Trump diplomacy
-    "Trump":        ["trump_zelenskyy", "trump_putin"],
-    "Merz":         [],  # merz_trump not scored yet
-    "Vance":        [],
- 
-    # China/Taiwan
-    "China":        ["china_taiwan"],
-    "Taiwan":       ["china_taiwan"],
-    "Xi Jinping":   ["china_taiwan"],
- 
-    # Iran — add once iran_israel etc. are scored
-    "Iran":         [],
-    "Khamenei":     [],
- 
-    # others — add once scored
-    "India":        [],
-    "Pakistan":     [],
-    "North Korea":  [],
-    "Yoon":         [],
-    "Kim Jong Un":  [],
-    "Al-Sharaa":    [],
-    "MBS":          [],
-}
 
+# need to update 
 # min articles per week to include - fewer is too noisy
 MIN_POSTS = 2
 
@@ -201,15 +97,6 @@ markets = con.execute("""
 """).fetchdf()
 con.close()
 print(f"{len(markets)} markets loaded")
-
-
-
-#  TEST: Ukraine only - remove before full run 
-markets = markets[
-    markets["tags"].apply(lambda tags: "ukraine" in list(tags) if tags is not None else False)
-]
-print(f"filtered to {len(markets)} Ukraine markets for testing")
-
 
 
 #  main loop 
@@ -306,28 +193,6 @@ for i, market in enumerate(markets.itertuples(), 1):
     ]]
 
     output_rows.append(weekly)
-    
-
-    if i == 1:
-        print(f"\nDEBUG market 1:")
-        print(f"  question: {question}")
-        print(f"  keywords: {keywords}")
-        print(f"  corpora:  {corpora}")
-        print(f"  start: {start} (type: {type(start)})")
-        print(f"  end:   {end} (type: {type(end)})")
-        
-        corpus = get_combined_corpus(corpora)
-        print(f"  corpus rows: {len(corpus) if corpus is not None else 'None'}")
-        
-        if corpus is not None:
-            print(f"  corpus date range: {corpus['date'].min()} → {corpus['date'].max()}")
-            in_window = corpus[(corpus["date"] >= start) & (corpus["date"] <= end)]
-            print(f"  in_window rows: {len(in_window)}")
-            
-            if not in_window.empty:
-                pattern = keywords_to_pattern(keywords)
-                matched = in_window[in_window["text"].astype(str).str.contains(pattern, na=False)]
-                print(f"  matched rows: {len(matched)}")
 
 
 print(f"\nDone. Writing output...")

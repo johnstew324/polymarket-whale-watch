@@ -8,34 +8,8 @@ import glob
 import pandas as pd
 from pathlib import Path
 from dateutil import parser as dtparser
+from src.sentiment.pipeline_config import TOPICS
 
-# add topics here as files are downloaded .
-# common tags in the market data
-TOPICS = [
-    # new
-    "ceasefire_russia_ukraine",
-    "china_taiwan",
-    "gaza_israel",
-    "gaza_usa",
-    "hamas_israel",
-    "hezbollah_nasrallah",
-    "israel_lebanon",
-    "israel_saudi",
-    "israel_syria",
-    "israel_yemen",
-    "kupiansk_russia",
-    "moscow_ukraine",
-    "netanyahu_unga",
-    "pokrovsk_russia",
-    "putin_zelenskyy",
-    "russia_siversk",
-    "russia_sudzha",
-    "russia_syria",
-    "russia_ukraine",
-    "trump_putin",
-    "trump_zelenskyy",
-    "zelenskyy",
-]
 
 IN_DIR  = Path("data/raw/proquest")
 OUT_DIR = Path("data/processed/proquest")

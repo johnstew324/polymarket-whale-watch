@@ -9,7 +9,7 @@
  
 import re # for regex operations
 import spacy
-from src.sentiment.geo_vocab_mapping import KNOWN_NAMES, STOPWORDS
+from src.sentiment.pipeline_config import KNOWN_NAMES, STOPWORDS
  
 
 nlp = spacy.load("en_core_web_sm")

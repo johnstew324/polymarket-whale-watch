@@ -1,6 +1,7 @@
 import duckdb
 from src.sentiment.ner_keywords import extract_keywords
-from src.sentiment.geo_vocab_mapping import KNOWN_NAMES, STOPWORDS
+from src.sentiment.pipeline_config import KNOWN_NAMES, STOPWORDS
+from collections import Counter
 
 con = duckdb.connect("data/analytical/polymarket.ddb", read_only=True)
 questions = con.execute("""
@@ -33,12 +34,7 @@ print(f"\nEmpty markets ({len(empty)})")
 for q in empty:
     print(f"  {q}")
 
-print(f"\nSample of single-keyword markets (first 20)")
-for q, kws in single[:20]:
-    print(f"  {kws} ← {q}")
 
-
-from collections import Counter
 all_keywords = []
 for cid, q in questions:
     all_keywords.extend(extract_keywords(q))

@@ -142,10 +142,6 @@ for i, market in enumerate(markets.itertuples(), 1):
     matched = matched.copy()
     matched["compound"] = matched["content"].apply(score_text)
 
-    # score each matched post
-    matched = matched.copy()
-    matched["compound"] = matched["content"].apply(score_text)
-
     # aggregate to weekly scores
     weekly = (
         matched.groupby("week_start")

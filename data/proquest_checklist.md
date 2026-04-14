@@ -49,29 +49,29 @@ Market counts for 2-keyword searches include markets from 3-keyword child combin
 - [x] `netanyahu_trump` — "Netanyahu" AND "Trump" | 13 markets | 2025-01-05 → 2025-05-31
 - [x] `south_african_trump` — "South African" AND "Trump" | 13 markets | 2025-04-19 → 2025-05-21
 - [x] `pokrovsk_russia` — "Pokrovsk" AND "Russia" | 13 markets | 2024-07-14 → 2025-10-31
-- [ ] `pope` — "Pope" | 13 markets | 2025-01-25 → 2025-10-31
+- [x] `pope` — "Pope" | 13 markets | 2025-01-25 → 2025-10-31
 - [x] `houthi_israel` — "Houthi" AND "Israel" | 13 markets | 2025-02-16 → 2025-10-15
 
 
-- [ ] `putin` — "Putin" | 12 markets | 2025-02-09 → 2025-10-31 ( to do!)
+- [x] `putin` — "Putin" | 12 markets | 2025-02-09 → 2025-10-31
 - [x] `armenia_trump` — "Armenia" AND "Trump" | 12 markets | 2025-07-08 → 2025-08-08
 - [x] `moscow_ukraine` — "Moscow" AND "Ukraine" | 10 markets | 2024-02-21 → 2025-10-31
 - [x] `yoon` — "Yoon" | 10 markets | 2024-11-30 → 2025-10-31
-- [c] `un_zelenskyy` — "UN" AND "Zelenskyy" | 10 markets | 2024-08-25 → 2024-09-30
+- [x] `un_zelenskyy` — "UN" AND "Zelenskyy" | 10 markets | 2024-08-25 → 2024-09-30
 - [x] `usa_yemen` — "USA" AND "Yemen" | 9 markets | 2024-09-23 → 2025-10-31
-- [c] `ukraine_zelenskyy` — "Ukraine" AND "Zelenskyy" | 9 markets | 2024-04-07 → 2025-10-31
+- [x] `ukraine_zelenskyy` — "Ukraine" AND "Zelenskyy" | 9 markets | 2024-04-07 → 2025-10-31
 - [x] `south_korea_yoon` — "South Korea" AND "Yoon" | 9 markets | 2024-11-03 → 2025-04-30
-- [c] `al-sharaa` — "Al-Sharaa" | 8 markets | 2025-01-20 → 2025-10-31 - covered in sriya
+- [x] `al-sharaa` — "Al-Sharaa" | 8 markets | 2025-01-20 → 2025-10-31 - covered in sriya
 - [x] `bolsonaro` — "Bolsonaro" | 8 markets | 2025-01-12 → 2025-10-31
 - [x] `kim_jong_un` — "Kim Jong Un" | 8 markets | 2024-12-24 → 2025-10-31 - coverd in north_korea
-- [ ] `mbs` — "MBS" | 8 markets | 2024-12-24 → 2025-10-31
-- [ ] `elon_musk_trump` — "Elon Musk" AND "Trump" | 8 markets | 2025-02-26 → 2025-10-31
-- [ ] `nato_nato_public_forum_address_rutte` — "NATO" AND "NATO Public Forum Address" AND "Rutte" | 8 markets | 2025-05-19 → 2025-06-24
+- [x] `mbs` — "MBS" | 8 markets | 2024-12-24 → 2025-10-31
+- [x] `elon_musk_trump` — "Elon Musk" AND "Trump" | 8 markets | 2025-02-26 → 2025-10-31
+- [x] `nato_nato_public_forum_address_rutte` — "NATO" AND "NATO Public Forum Address" AND "Rutte" | 8 markets | 2025-05-19 → 2025-06-24
 - [x] `iran_khamenei` — "Iran" AND "Khamenei" | 7 markets | 2023-11-26 → 2025-10-31
 - [x] `netanyahu_un` — "Netanyahu" AND "UN" | 7 markets | 2025-08-26 → 2025-09-26
-- [ ] `hezbollah_israel` — "Hezbollah" AND "Israel" | 7 markets | 2024-07-06 → 2025-10-31
-- [ ] `iran_trump` — "Iran" AND "Trump" | 7 markets | 2025-05-12 → 2025-07-16
-- [ ] `usa_venezuela` — "USA" AND "Venezuela" | 7 markets | 2025-07-22 → 2025-10-31
+- [x] `hezbollah_israel` — "Hezbollah" AND "Israel" | 7 markets | 2024-07-06 → 2025-10-31
+- [x] `iran_trump` — "Iran" AND "Trump" | 7 markets | 2025-05-12 → 2025-07-16
+- [x] `usa_venezuela` — "USA" AND "Venezuela" | 7 markets | 2025-07-22 → 2025-10-31
 - [x] `north_korea_south_korea` — "North Korea" AND "South Korea" | 7 markets | 2023-12-09 → 2025-10-31 - coverd in norht_korea
 - [ ] `china_trump` — "China" AND "Trump" | 7 markets | 2025-02-26 → 2025-10-31
 - [ ] `starmer` — "Starmer" | 7 markets | 2025-01-11 → 2025-10-31
@@ -80,12 +80,12 @@ Market counts for 2-keyword searches include markets from 3-keyword child combin
 - [x] `russia_siversk` — "Russia" AND "Siversk" | 6 markets | 2024-09-03 → 2025-10-31
 - [x] `lula` — "Lula" | 6 markets | 2025-01-11 → 2025-10-31
 - [x] `gaza_usa` — "Gaza" AND "USA" | 6 markets | 2025-01-06 → 2025-10-31
-- [ ] `israel_trump` — "Israel" AND "Trump" | 6 markets | 2025-07-02 → 2025-10-31
+- [x] `israel_trump` — "Israel" AND "Trump" | 6 markets | 2025-07-02 → 2025-10-31
 - [x] `germany_trump` — "Germany" AND "Trump" | 6 markets | 2025-07-02 → 2025-10-31
 - [x] `houthi` — "Houthi" | 5 markets | 2025-02-16 → 2025-10-15
-- [ ] `iraq_israel` — "Iraq" AND "Israel" | 5 markets | 2024-09-04 → 2025-10-31
+- [x] `iraq_israel` — "Iraq" AND "Israel" | 5 markets | 2024-09-04 → 2025-10-31
 - [x] `baier_zelenskyy` — "Baier" AND "Zelenskyy" | 5 markets | 2025-01-29 → 2025-02-28
-- [ ] `damascus_israel` — "Damascus" AND "Israel" | 5 markets | 2025-06-15 → 2025-10-31
+- [x] `damascus_israel` — "Damascus" AND "Israel" | 5 markets | 2025-06-15 → 2025-10-31 - coverd with syria
 - [x] `russia_zelenskyy` — "Russia" AND "Zelenskyy" | 5 markets | 2025-08-04 → 2025-10-31
 - [x] `china_taiwan` — "China" AND "Taiwan" | 5 markets | 2023-12-16 → 2025-10-31
 - [x] `russia_syria` — "Russia" AND "Syria" | 5 markets | 2024-11-02 → 2025-06-30
@@ -94,7 +94,7 @@ Market counts for 2-keyword searches include markets from 3-keyword child combin
 - [x] `kupiansk_russia` — "Kupiansk" AND "Russia" | 5 markets | 2025-01-12 → 2025-10-31
 - [ ] `russia_yunakivka` — "Russia" AND "Yunakivka" | 5 markets | 2025-01-20 → 2025-08-01
 - [x] `khamenei` — "Khamenei" | 5 markets | 2024-12-24 → 2025-10-31
-- [ ] `crimea` — "Crimea" | 5 markets | 2024-07-24 → 2024-12-31
+- [x] `crimea` — "Crimea" | 5 markets | 2024-07-24 → 2024-12-31
 - [x] `trump_xi_jinping` — "Trump" AND "Xi Jinping" | 5 markets | 2025-04-15 → 2025-07-31
 - [ ] `south_korea` — "South Korea" | 5 markets | 2024-11-03 → 2025-01-05
 - [x] `syria_usa` — "Syria" AND "USA" | 5 markets | 2024-11-03 → 2025-10-31
@@ -121,7 +121,7 @@ Market counts for 2-keyword searches include markets from 3-keyword child combin
 - [ ] `dnipropetrovsk_russia` — "Dnipropetrovsk" AND "Russia" | 4 markets | 2025-01-05 → 2025-05-31
 - [ ] `russia_usa` — "Russia" AND "USA" | 4 markets | 2025-01-21 → 2025-10-31
 - [ ] `beirut_embassy_usa` — "Beirut Embassy" AND "USA" | 4 markets | 2024-06-30 → 2024-12-31
-- [ ] `meloni` — "Meloni" | 4 markets | 2025-01-11 → 2025-10-31
+- [x] `meloni` — "Meloni" | 4 markets | 2025-01-11 → 2025-10-31
 - [ ] `india_trump` — "India" AND "Trump" | 4 markets | 2025-02-26 → 2025-10-31
 - [ ] `erdoğan` — "Erdoğan" | 4 markets | 2025-02-09 → 2025-10-31
 - [ ] `india_russia` — "India" AND "Russia" | 4 markets | 2025-07-07 → 2025-09-30
@@ -138,20 +138,20 @@ Market counts for 2-keyword searches include markets from 3-keyword child combin
 - [ ] `argentina_trump` — "Argentina" AND "Trump" | 3 markets | 2025-07-02 → 2025-10-31
 - [x] `lula_trump` — "Lula" AND "Trump" | 3 markets | 2025-07-02 → 2025-10-31
 - [ ] `canada` — "Canada" | 3 markets | 2025-01-04 → 2025-06-30
-- [o] `congress_iran` — "Congress" AND "Iran" | 3 markets | 2025-05-24 → 2025-10-31
-- [c] `merz` — "Merz" | 3 markets | 2025-04-06 → 2025-10-31
+- [ ] `congress_iran` — "Congress" AND "Iran" | 3 markets | 2025-05-24 → 2025-10-31
+- [x] `merz` — "Merz" | 3 markets | 2025-04-06 → 2025-10-31
 - [ ] `nato_russia` — "NATO" AND "Russia" | 3 markets | 2025-08-12 → 2025-10-31
 - [x] `hezbollah_nasrallah` — "Hezbollah" AND "Nasrallah" | 3 markets | 2024-05-26 → 2024-10-31
-- [c] `putin_usa` — "Putin" AND "USA" | 3 markets | 2025-01-13 → 2025-06-30
+- [x] `putin_usa` — "Putin" AND "USA" | 3 markets | 2025-01-13 → 2025-06-30
 - [ ] `bitcoin_crypto_trump` — "Bitcoin" AND "Crypto" AND "Trump" | 3 markets | 2025-01-27 → 2025-04-02
 - [ ] `brazil_trump` — "Brazil" AND "Trump" | 3 markets | 2025-07-02 → 2025-10-31
 - [ ] `carney_trump` — "Carney" AND "Trump" | 3 markets | 2025-02-09 → 2025-10-31
 - [x] `syria_trump` — "Syria" AND "Trump" | 3 markets | 2025-04-13 → 2025-07-31
 - [ ] `afghanistan_usa` — "Afghanistan" AND "USA" | 3 markets | 2025-05-20 → 2025-10-31
 - [ ] `russia_udachne` — "Russia" AND "Udachne" | 3 markets | 2025-04-28 → 2025-08-31
-- [ ] `pope_pope_francis` — "Pope" AND "Pope Francis" | 3 markets | 2025-01-11 → 2025-10-31
+- [x] `pope_pope_francis` — "Pope" AND "Pope Francis" | 3 markets | 2025-01-11 → 2025-10-31
 - [ ] `lukashenko` — "Lukashenko" | 3 markets | 2025-07-16 → 2025-10-31
-- [ ] `gaza_greta_thunberg` — "Gaza" AND "Greta Thunberg" | 3 markets | 2025-08-01 → 2025-10-31
+- [x] `gaza_greta_thunberg` — "Gaza" AND "Greta Thunberg" | 3 markets | 2025-08-01 → 2025-10-31
 - [ ] `thailand_x_cambodia` — "Thailand x Cambodia" | 3 markets | 2025-06-24 → 2025-08-15
 - [x] `assad_syria` — "Assad" AND "Syria" | 3 markets | 2024-10-19 → 2025-03-31
 - [x] `syria_turkey` — "Syria" AND "Turkey" | 3 markets | 2024-11-11 → 2025-04-30
