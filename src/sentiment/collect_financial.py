@@ -26,7 +26,7 @@ from src.sentiment.pipeline_config import TOPIC_TO_TICKERS
 DB       = Path("data/analytical/polymarket.ddb")
 OUT_DIR    = Path("data/processed")
 # OUT_DAILY  = OUT_DIR / "financial_signals_daily.csv"  
-OUT_WEEKLY = OUT_DIR / "financial_signals_weekly.csv"
+OUT_WEEKLY = OUT_DIR / "financial" / "financial_signals_weekly.csv"
 
 # rolling window for abnormal return baseline (trading days)
 ROLLING_WINDOW = 20

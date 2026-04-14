@@ -216,6 +216,9 @@ data/processed/*
 !data/processed/sentiment/
 !data/processed/sentiment/*.csv
 
+!data/processed/financial/
+!data/processed/financial/*.csv
+
 data/analytical/
 *.pyc
 
