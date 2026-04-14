@@ -97,7 +97,7 @@ for topic in TOPICS:
     if n > 0:
         df = pd.read_csv(OUT_DIR / f"{topic}_articles.csv")
         dates = pd.to_datetime(df["date"], errors="coerce").dropna()
-        date_range = f"{dates.min().date()} → {dates.max().date()}" if len(dates) else "no dates"
+        date_range = f"{dates.min().date()} -> {dates.max().date()}" if len(dates) else "no dates"
         print(f"[{topic}] {n:,} articles  ({date_range})")
         total += n
 

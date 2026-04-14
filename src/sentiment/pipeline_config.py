@@ -650,3 +650,225 @@ KEYWORD_TO_CORPORA = {
     "MrBeast":       [],
     "Baier":         [],
 }
+
+
+
+
+# 5. TOPIC_TO_TICKERS
+
+# maps NER keyword → relevant stock/ETF tickers
+# keys match canonical display form from KNOWN_NAMES (same as KEYWORD_TO_CORPORA)
+# ordered by frequency from inspect_keywords.py output
+# empty list [] = no liquid instrument to map to
+#
+# ticker notes:
+#   LMT/RTX/NOC/GD  = US defence primes (move on conflict escalation)
+#   USO             = US Oil Fund ETF (crude oil proxy)
+#   XOM/CVX         = major US oil majors
+#   SHEL/BP         = European energy (Russia/gas exposure)
+#   WEAT/CORN       = grain futures ETFs (Ukraine = major exporter)
+#   GLD             = gold (geopolitical risk hedge, spikes on escalation)
+#   TLT             = 20yr US treasury ETF (rate/macro risk)
+#   SPY             = S&P 500 (broad macro)
+#   DXY             = US dollar index
+#   TSM             = TSMC (Taiwan strait risk proxy)
+#   NVDA            = Nvidia (AI + China export controls)
+#   EWG/EWQ/EWU     = Germany/France/UK country ETFs
+#   FEZ             = Euro Stoxx 50 ETF
+#   EWZ             = Brazil ETF
+#   INDA            = India ETF
+#   TUR             = Turkey ETF
+#   EPOL            = Poland ETF
+#   005930.KS       = Samsung (South Korea political risk)
+#   000660.KS       = SK Hynix (South Korea political risk)
+#   CNH=X           = Chinese yuan (trade war proxy)
+#   GBP=X           = British pound
+#   EUR=X           = Euro
+#   BTC-USD         = Bitcoin
+#   ETH-USD         = Ethereum
+ 
+TOPIC_TO_TICKERS = {
+ 
+    # ── High frequency (100+ markets) ────────────────────────────────────────
+ 
+    "Israel":        ["LMT", "RTX", "NOC", "GD", "GLD"],
+    "Trump":         ["DXY", "GLD", "TLT", "SPY"],
+    "Iran":          ["USO", "XOM", "CVX", "GLD"],
+    "USA":           ["DXY", "SPY", "TLT"],
+    "Russia":        ["USO", "SHEL", "BP", "WEAT", "GLD"],
+    "Zelenskyy":     ["WEAT", "LMT", "RTX", "GLD"],
+    "Ukraine":       ["WEAT", "CORN", "LMT", "RTX"],
+    "Yemen":         ["USO", "XOM", "LMT", "RTX"],
+    "Putin":         ["USO", "SHEL", "WEAT", "GLD"],
+    "Gaza":          ["LMT", "RTX", "NOC", "GLD"],
+ 
+    # ── Medium frequency (20-99 markets) ─────────────────────────────────────
+ 
+    "Netanyahu":     ["LMT", "RTX", "GLD"],
+    "Syria":         ["USO", "LMT", "GLD"],
+    "Hamas":         ["LMT", "RTX", "GLD"],
+    "South Korea":   ["005930.KS", "000660.KS", "LMT"],
+    "India":         ["INDA", "LMT", "GLD"],
+    "NATO":          ["LMT", "RTX", "NOC", "GD"],
+    "UN General Assembly": ["GLD", "TLT"],
+    "Pakistan":      ["LMT", "GLD"],
+    "Starmer":       ["EWU", "GBP=X"],
+    "Turkey":        ["TUR", "GLD"],
+    "Elon Musk":     ["TSLA", "NVDA"],
+    "North Korea":   ["LMT", "RTX", "005930.KS", "GLD"],
+    "Saudi Arabia":  ["USO", "XOM", "CVX"],
+    "China":         ["TSM", "NVDA", "USDCNH=X"],
+    "Houthi":        ["USO", "LMT", "RTX"],
+    "Merz":          ["EWG", "FEZ"],
+    "Poland":        ["EPOL", "LMT"],
+    "Xi Jinping":    ["TSM", "CNH=X", "NVDA"],
+    "UK":            ["EWU", "GBP=X"],
+    "Macron":        ["EWQ", "FEZ", "EUR=X"],
+    "Bitcoin":       ["BTC-USD"],
+    "Yoon":          ["005930.KS", "000660.KS"],
+    "Lebanon":       ["LMT", "RTX", "GLD"],
+    "Crypto":        ["BTC-USD", "ETH-USD"],
+    "UN":            ["GLD", "TLT"],
+    "EU":            ["FEZ", "EUR=X"],
+    "Gulf Leaders Summit": ["USO", "XOM"],
+    "Vance":         ["GLD", "TLT"],
+    "Rutte":         ["LMT", "RTX", "FEZ"],
+    "NATO Public Forum Address": ["LMT", "RTX"],
+    "Palestine":     ["LMT", "RTX", "GLD"],
+    "South African": ["GLD"],
+    "Khamenei":      ["USO", "GLD"],
+    "Armenia":       ["GLD"],
+    "Al-Sharaa":     ["USO", "GLD"],
+    "Pokrovsk":      ["WEAT", "LMT"],
+    "Qatar":         ["USO", "LMT"],
+    "AI":            ["NVDA", "MSFT", "GOOGL", "AMD"],
+    "France":        ["EWQ", "FEZ", "EUR=X"],
+    "Hezbollah":     ["LMT", "RTX", "GLD"],
+    "Kim Jong Un":   ["LMT", "RTX", "GLD"],
+    "Venezuela":     ["USO"],
+    "Moscow":        ["WEAT", "USO", "SHEL"],
+    "Germany":       ["EWG", "FEZ", "EUR=X"],
+    "Lula":          ["EWZ"],
+ 
+    # ── Lower frequency (5-19 markets) ───────────────────────────────────────
+ 
+    "MBS":           ["USO", "XOM"],
+    "Crimea":        ["WEAT", "LMT", "GLD"],
+    "Brazil":        ["EWZ"],
+    "Bolsonaro":     ["EWZ"],
+    "Egypt":         ["GLD"],
+    "Constitutional Court": ["005930.KS", "000660.KS"],
+    "Siversk":       ["WEAT"],
+    "Erdoğan":       ["TUR", "GLD"],
+    "Iraq":          ["USO", "LMT"],
+    "Maduro":        ["USO"],
+    "Damascus":      ["USO", "LMT"],
+    "Taiwan":        ["TSM", "NVDA"],
+    "Sudzha":        ["WEAT"],
+    "Kupiansk":      ["WEAT"],
+    "Donbas":        ["WEAT", "LMT"],
+    "Milei":         [],                    # no liquid instrument
+    "Belarus":       ["GLD"],
+    "Mexico":        ["MXN=X"],
+    "Apple":         ["AAPL"],
+    "Fordow":        ["USO", "GLD"],
+    "Australia":     [],
+    "Argentina":     [],
+    "Von der Leyen": ["FEZ", "EUR=X"],
+    "TikTok":        ["META", "GOOGL"],
+    "Meloni":        ["FEZ", "EUR=X"],
+    "Jordan":        ["GLD", "LMT"],
+    "Greenland":     [],
+    "UAE":           ["USO"],
+    "Nord Stream":   ["SHEL", "BP"],
+    "Afghanistan":   ["LMT", "GLD"],
+    "Nasrallah":     ["LMT", "RTX", "GLD"],
+    "Carney":        ["GBP=X"],             # Canada context
+    "Lukashenko":    ["GLD"],
+    "Hungary":       ["FEZ"],
+    "Ceasefire":     ["GLD", "LMT"],
+    "Spain":         ["FEZ", "EUR=X"],
+    "Modi":          ["INDA", "LMT"],
+ 
+    # ── Low frequency (2-4 markets) ───────────────────────────────────────────
+ 
+    "Suez Canal":    ["USO", "XOM"],
+    "Tesla":         ["TSLA"],
+    "Reza Pahlavi":  ["USO", "GLD"],
+    "Panama":        ["USO"],               # canal / shipping
+    "Black Sea":     ["WEAT", "USO"],
+    "Witkoff":       ["GLD"],
+    "West Bank":     ["LMT", "RTX", "GLD"],
+    "UNRWA":         ["GLD"],
+    "DeepSeek":      ["NVDA", "AMD"],
+    "Lai Ching-te":  ["TSM"],
+    "White House":   ["DX-Y.NYB", "GLD"],
+    "IDF":           ["LMT", "RTX"],
+    "Sisi":          ["GLD"],
+    "BRICS":         ["GLD", "EEM"],        # emerging markets ETF
+    "Iron Dome":     ["LMT", "RTX"],
+    "Tehran":        ["USO", "GLD"],
+    "Hormuz":        ["USO", "XOM"],
+    "DOGE":          ["TSLA"],
+    "Congo":         ["CPER"],              # copper
+    "Azerbaijan":    ["GLD"],
+    "Marco Rubio":   ["GLD", "TLT"],
+    "Sinwar":        ["LMT", "RTX"],
+    "Ben Gvir":      ["LMT", "RTX"],
+ 
+    # ── Single market / noise — leave empty ───────────────────────────────────
+ 
+    "Epstein":       [],
+    "Greta Thunberg": [],
+    "MrBeast":       [],
+    "Pope":          [],
+    "Pope Francis":  [],
+    "Baier":         [],
+    "Heathrow":      [],
+    "Guterres":      [],
+    "Durov":         [],
+    "Sánchez":       [],
+    "Ishiba":        [],
+    "Trudeau":       [],
+    "Obama":         [],
+    "Biden":         [],
+    "Japan":         [],                    # house_of_councillors markets, no clear proxy
+    "House of Councillors": [],
+    "Canada":        [],
+    "Thailand":      [],
+    "Cambodia":      [],
+    "Indonesia":     [],
+    "Philippines":   [],
+    "Finland":       [],
+    "Norway":        [],
+    "Ireland":       [],
+    "Netherlands":   [],
+    "Belgium":       [],
+    "Austria":       [],
+    "Portugal":      [],
+    "Serbia":        [],
+    "Greece":        [],
+    "Vatican":       [],
+    "Gold":          ["GLD"],
+    "Oil":           ["USO", "XOM", "CVX"],
+    "Nvidia":        ["NVDA"],
+    "SpaceX":        ["TSLA"],
+    "Semiconductor": ["NVDA", "TSM", "AMD"],
+    "LNG":           ["SHEL", "BP"],
+    "Kharg":         ["USO"],
+    "Persian Gulf":  ["USO", "XOM"],
+    "Baghdad":       ["USO", "LMT"],
+    "Kyiv":          ["WEAT", "LMT"],
+    "Donetsk":       ["WEAT"],
+    "PKK":           ["TUR"],
+    "Zangezur Corridor": ["GLD"],
+    "Abraham Accord": ["LMT", "USO"],
+    "Warsaw Pact":   ["LMT", "RTX"],
+    "G7":            ["DXY", "GLD"],
+    "WTO":           ["DXY"],
+    "WHO":           [],
+    "ICC":           [],
+    "xAI":           ["TSLA"],
+    "Grok":          ["TSLA"],
+    "Starlink":      ["TSLA"],
+}
