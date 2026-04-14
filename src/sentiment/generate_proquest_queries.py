@@ -184,7 +184,7 @@ for combo, count, data, start_str, end_str in filtered:
     query  = " AND ".join(f'"{kw}"' for kw in combo)
     folder = to_folder(combo)
     checklist_lines.append(
-        f"- [ ] `{folder}` — {query} | {count} markets | {start_str} → {end_str}"
+        f"- [ ] `{folder}` — {query} | {count} markets | {start_str} -> {end_str}"
     )
 
 checklist_lines.append("")

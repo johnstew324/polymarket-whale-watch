@@ -1,3 +1,4 @@
+# this gives us the most common keywords so we can map them to corpora
 import duckdb
 from src.sentiment.ner_keywords import extract_keywords
 from src.sentiment.pipeline_config import KNOWN_NAMES, STOPWORDS
@@ -42,4 +43,4 @@ for cid, q in questions:
 freq = Counter(all_keywords).most_common()
 print(f"\n All {len(freq)} unique keywords")
 for kw, count in freq:
-    print(f"  {count:>4}  {kw}")
+    print(f"{count:>4}  {kw}")

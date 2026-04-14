@@ -10,7 +10,6 @@
 
 import os
 from pathlib import Path
-
 # fix OpenMP duplicate runtime crash
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -19,71 +18,8 @@ import pandas as pd
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from tqdm import tqdm
+from src.sentiment.pipeline_config import TOPICS
 
-
-TOPICS = [
-    "armenia_trump",
-    "bolsonaro",
-    "ceasefire_russia_ukraine",
-    "china_taiwan",
-    "crimea",
-    "elon_musk_trump",
-    "gaza_israel",
-    "gaza_usa",
-    "germany_trump",
-    "gulf_trump",
-    "hamas_israel",
-    "hezbollah_israel",
-    "hezbollah_nasrallah",
-    "houthi",
-    "india_pakistan",
-    "iran_israel",
-    "iran_trump",
-    "iran_usa",
-    "iraq_israel",
-    "israel_lebanon",
-    "israel_saudi",
-    "israel_syria",
-    "israel_trump",
-    "israel_yemen",
-    "jerome_powell",
-    "khamenei",
-    "kupiansk_russia",
-    "lula",
-    "lula_trump",
-    "macron_trump",
-    "mbs",
-    "meloni",
-    "merz",
-    "merz_trump",
-    "moscow_ukraine",
-    "netanyahu",
-    "netanyahu_unga",
-    "north_korea",
-    "poland_trump",
-    "pokrovsk_russia",
-    "pope",
-    "putin",
-    "putin_zelenskyy",
-    "russia_siversk",
-    "russia_sudzha",
-    "russia_syria",
-    "russia_ukraine",
-    "saudi_arabia_usa",
-    "south_african_trump",
-    "south_korea_trump",
-    "starmer_trump",
-    "syria",
-    "syria_usa",
-    "trump_putin",
-    "trump_turkey",
-    "trump_un_general_assembly",
-    "trump_zelenskyy",
-    "usa_venezuela",
-    "xi_jinping",
-    "yoon",
-    "zelenskyy",
-]
 
 PQ_DIR     = Path("data/processed/proquest")
 MODEL_NAME = "ProsusAI/finbert"
@@ -193,7 +129,7 @@ for topic in TOPICS:
     df["net_score"] = net_list
 
     df.to_csv(out_path, index=False, encoding="utf-8")
-    print(f"[{topic}] saved {len(df):,} scored articles → {out_path}\n")
+    print(f"[{topic}] saved {len(df):,} scored articles -> {out_path}\n")
     total_scored += len(df)
 
 print(f"Done: {total_scored:,} total articles scored across {len(TOPICS)} topics")
