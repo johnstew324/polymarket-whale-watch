@@ -59,11 +59,11 @@ collect-financial:
  
 # load sentiment + financial CSVs into DuckDB
 load-sentiment:
-	python -m src.pipeline.load_sentiment_financial_db
+	python -m src.sentiment.load_sentiment_financial_db
 
 # coverage report - how many markets have sentiment/financial data
 inspect-coverage:
-	python -m src.pipeline.inspect_coverage	
+	python -m src.sentiment.inspect_coverage
 
 
  
@@ -85,7 +85,6 @@ sentiment: sentiment-ts sentiment-ft sentiment-financial
 # include analysis pipeline
 # so queries and wallet analysis
 # then wordclouds LDA etc.. 
-
 
 
 # 3. cleanup

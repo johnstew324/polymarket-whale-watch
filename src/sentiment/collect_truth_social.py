@@ -14,13 +14,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from src.sentiment.ner_keywords import extract_keywords, keywords_to_pattern
 
 
-
 DB       = Path("data/analytical/polymarket.ddb")
 ARCHIVE  = Path("data/raw/truth_social_archive.csv")
 OUT_DIR  = Path("data/processed/sentiment")
 OUT_FILE = OUT_DIR / "truth_social_sentiment.csv"
-
-
 
 # keywords that match the archive author — useless for single-author archives
 # since every post is by Trump, "Trump" matches everything and dilutes market-specific signal
@@ -55,8 +52,6 @@ archive["week_start"] = archive["created_at"].dt.to_period("W-SUN").apply(
 )
 
 print(f"{len(archive)} posts loaded ({archive['created_at'].min().date()} -> {archive['created_at'].max().date()})")
-
-
 
 
 # vader 
