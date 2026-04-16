@@ -1,8 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {subsection}{\numberline {0.1}Data Source Evaluation}{4}{subsection.0.1}%
-\contentsline {paragraph}{Chosen source: S3 snapshot of on-chain events.}{4}{section*.4}%
-\contentsline {subsection}{\numberline {0.2}Pipeline Architecture}{5}{subsection.0.2}%
-\contentsline {subsection}{\numberline {0.3}Database Schema}{10}{subsection.0.3}%
-\contentsline {section}{\numberline {A}Data Download}{13}{appendix.A}%
-\contentsline {section}{\numberline {B}Pipeline Source Code}{13}{appendix.B}%
-\contentsline {section}{\numberline {C}Pipeline Source Code}{13}{appendix.C}%

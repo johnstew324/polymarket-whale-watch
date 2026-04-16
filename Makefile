@@ -1,7 +1,9 @@
 # usage: make <target>
 # "make pipeline" - for full pipeline
 
-.PHONY: download markets tokens filter process db queries pipeline clean
+.PHONY: download markets tokens filter process db queries pipeline clean \
+        clean-sentiment clean-proquest clean-scored clean-all clean-notebooks \
+        setup report open-report clean-report rebuild-report figures loc
 
 
 # 1. data collection and processing
@@ -123,3 +125,13 @@ clean-notebooks:
 setup:
 	pip install -r requirements.txt
 	python -m spacy download en_core_web_sm
+
+
+
+
+# 5. report
+report:
+	cd report && latexmk -pdf -interaction=nonstopmode main.tex
+
+clean-report:
+	cd report && latexmk -c
