@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}EDA and Feature Transformation (400 words)}{3}{section.1}%
+\contentsline {section}{\numberline {2}Logistic Regression (500 words)}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Trained Model on Full Sample}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Using Test/Train Split and Cross Validation}{8}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Plotting ROC and Computing AUC}{9}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Other Supervised Learning Models (650 words)}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tuning, flexibility, and comparative discrimination}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Holdout comparison and preferred model}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Practical relevance for the marketing use-case}{12}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Unsupervised Learning Models (450 words)}{13}{section.4}%
+\contentsline {section}{\numberline {5}Recommendation and Deployment Considerations (250 words)}{13}{section.5}%
+\contentsline {section}{\numberline {A}Appendix}{14}{appendix.A}%
+\contentsline {section}{\numberline {B}Bibliography}{14}{appendix.B}%
