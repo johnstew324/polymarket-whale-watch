@@ -120,7 +120,27 @@ clean-notebooks:
 	jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
  
 
-# 4. setup
+
+ml:
+	python -m src.machine_learning.run
+
+ml-notebook:
+	jupyter nbconvert --to notebook --execute notebooks/ml_report.ipynb --output ml_report_executed.ipynb
+
+ml-clean:
+	rm -f data/processed/trades_enriched.parquet data/processed/fm_cache.parquet
+	rm -rf results/ml
+
+analysis:
+	python -m src.analysis.run
+
+all: queries ml analysis
+
+
+
+
+
+# setup
 
 setup:
 	pip install -r requirements.txt
@@ -129,9 +149,3 @@ setup:
 
 
 
-# 5. report
-report:
-	cd report && latexmk -pdf -interaction=nonstopmode main.tex
-
-clean-report:
-	cd report && latexmk -c

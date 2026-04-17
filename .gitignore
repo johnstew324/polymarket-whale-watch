@@ -246,3 +246,4 @@ data/analytical/*.ddb
 *.toc
 *.xdv
 !report/*.pdf
+.tex

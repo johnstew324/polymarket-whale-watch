@@ -16,3 +16,12 @@ vaderSentiment
 jupyter
 matplotlib
 yfinance
+scikit-learn
+wordcloud
+scipy
+statsmodels
+xgboost
+optuna
+shap
+plotly
+kaleidoc
