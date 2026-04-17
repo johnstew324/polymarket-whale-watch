@@ -10,7 +10,8 @@
 import re # for regex operations
 import spacy
 from src.sentiment.pipeline_config import KNOWN_NAMES, STOPWORDS
- 
+import duckdb
+from collections import Counter
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -85,3 +86,42 @@ def keywords_to_pattern(keywords):
         return re.compile(r"(?!)")  # never matches
     escaped = [re.escape(kw) for kw in keywords]
     return re.compile("|".join(escaped), re.IGNORECASE)
+
+## quick analysis of keyword extraction on resolved markets with trading activity
+con = duckdb.connect("data/analytical/polymarket.ddb", read_only=True)
+questions = con.execute("""
+    SELECT m.conditionId, m.question
+    FROM markets m
+    WHERE m.resolvedOutcome IN ('Yes', 'No')
+    AND EXISTS (
+        SELECT 1 FROM trades t WHERE t.condition_id = m.conditionId
+    )
+""").fetchall()
+
+empty = []
+single = []
+keyword_counts = []
+all_keywords = []
+
+for cid, q in questions:
+    kws = extract_keywords(q)
+    keyword_counts.append(len(kws))
+    all_keywords.extend(kws)
+    if not kws:
+        empty.append(q)
+    elif len(kws) == 1:
+        single.append((q, kws))
+
+print(f"Total markets:        {len(questions)}")
+print(f"Empty keyword lists:  {len(empty)}")
+print(f"Single keyword only:  {len(single)}")
+print(f"Avg keywords/market:  {sum(keyword_counts)/len(keyword_counts):.2f}")
+
+print(f"\nEmpty markets ({len(empty)})")
+for q in empty:
+    print(f"  {q}")
+
+freq = Counter(all_keywords).most_common()
+print(f"\nAll {len(freq)} unique keywords")
+for kw, count in freq:
+    print(f"{count:>4}  {kw}")

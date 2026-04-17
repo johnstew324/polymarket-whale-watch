@@ -750,7 +750,7 @@ KEYWORD_TO_CORPORA = {
 
 
 
-# 5. TOPIC_TO_TICKERS
+# 5. KEYWORD_TO_TICKERS
 
 # maps NER keyword → relevant stock/ETF tickers
 # keys match canonical display form from KNOWN_NAMES (same as KEYWORD_TO_CORPORA)
@@ -783,7 +783,7 @@ KEYWORD_TO_CORPORA = {
 #   BTC-USD         = Bitcoin
 #   ETH-USD         = Ethereum
  
-TOPIC_TO_TICKERS = {
+KEYWORD_TO_TICKERS = {
 
     # Israel / Palestine 
     "Israel":        ["LMT", "RTX", "NOC", "GD", "GLD"],

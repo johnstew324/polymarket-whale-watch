@@ -1,5 +1,5 @@
 # collects financial market signals for each Polymarket market
-# maps NER keywords -> relevant tickers via TOPIC_TO_TICKERS in pipeline_config.py
+# maps NER keywords -> relevant tickers via KEYWORD_TO_TICKERS in pipeline_config.py
 # pulls daily OHLCV + computes abnormal returns (z-score vs 20-day rolling baseline)
 # output:
 # financial_signals_weekly.csv - weekly aggregated, aligns with sentiment week_start
@@ -19,7 +19,7 @@ import pandas as pd
 import duckdb
 import yfinance as yf
 from src.sentiment.ner_keywords import extract_keywords
-from src.sentiment.pipeline_config import TOPIC_TO_TICKERS
+from src.sentiment.pipeline_config import KEYWORD_TO_TICKERS
 
 DB = Path("data/analytical/polymarket.ddb")
 OUT_DIR    = Path("data/processed")
@@ -37,7 +37,7 @@ def get_tickers_for_market(question):
     tickers = []
     seen = set()
     for kw in keywords:
-        for ticker in TOPIC_TO_TICKERS.get(kw, []):
+        for ticker in KEYWORD_TO_TICKERS.get(kw, []):
             if ticker not in seen:
                 seen.add(ticker)
                 tickers.append(ticker)
