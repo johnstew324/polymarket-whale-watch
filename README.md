@@ -1,9 +1,3 @@
-<p align="center">
-  <img src="figures/polymarket_logo.png" alt="Polymarket" height="70">
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="figures/smurfit_transparent.jpeg" alt="UCD Michael Smurfit Graduate Business School" height="70">
-</p>
-
 # Polymarket Whale Watch
 
 **FIN42110 - Financial Data Science for Trading & Risk Management**
