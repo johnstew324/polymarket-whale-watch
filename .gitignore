@@ -247,3 +247,9 @@ data/analytical/*.ddb
 *.xdv
 !report/*.pdf
 .tex
+
+figures/
+report/*
+!report/*.tex
+!report/.gitignore
+!report/*.pdf
