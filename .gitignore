@@ -245,11 +245,12 @@ data/analytical/*.ddb
 *.synctex.gz
 *.toc
 *.xdv
-!report/*.pdf
-.tex
+*.pyg
+
+# ── LaTeX sources ─────────────────────────────────────────
+*.tex
 
 figures/
 report/*
-!report/*.tex
 !report/.gitignore
 !report/*.pdf
